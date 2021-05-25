@@ -5,13 +5,15 @@ import LaunchDetails from '../components/LaunchDetails';
 
 const LaunchContainer = () => {
 
-    const [Launch, setLaunch] = useState({});
+    const [launch, setLaunch] = useState({});
     const [selectedLaunchId, setSelectedLaunchId] = useState(1);
+    const [loaded, setLoaded] = useState(false);
 
     const getLaunch = () => {
         fetch(`https://api.spacexdata.com/v3/launches/${selectedLaunchId}`)
         .then(res => res.json())
         .then(data => setLaunch(data))
+        .then(() => setLoaded(true))
     }
 
     const incrementSelectedLaunch = () => {
@@ -46,7 +48,7 @@ const LaunchContainer = () => {
 
             <LaunchDetails
             launch={launch}
-
+            loaded={loaded}
             />
         </>
     )
